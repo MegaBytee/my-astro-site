@@ -1,0 +1,15 @@
+---
+import TimeUTCNow from "@/components/react/TimeUTC";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+---
+
+<Card>
+  <CardHeader>
+    <CardTitle>
+      <h1 class="text-3xl font-bold">Time Zone</h1>
+    </CardTitle>
+  </CardHeader>
+  <CardContent className="text-5xl font-bold">
+    <TimeUTCNow offset={1} client:load />
+  </CardContent>
+</Card>
