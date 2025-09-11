@@ -1,21 +1,19 @@
-// 1. Import utilities from `astro:content`
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
-// 2. Import loader(s)
-import { file } from "astro/loaders";
-
-// 3. Define your collection(s)
-const projects = defineCollection({
-  loader: file("./src/megabytee/data/projects.json"),
-  schema: z.object({
-    name: z.string(),
-    about: z.string(),
-    version: z.string(),
-    icon: z.string(),
-    type: z.enum(["public", "private"]),
-    link: z.string(),
-  }),
+const blog = defineCollection({
+	// Load Markdown and MDX files in the `src/content/blog/` directory.
+	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+	// Type-check frontmatter using a schema
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			// Transform string to Date object
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: image().optional(),
+		}),
 });
 
-// 4. Export a single `collections` object to register your collection(s)
-export const collections = { projects };
+export const collections = { blog };

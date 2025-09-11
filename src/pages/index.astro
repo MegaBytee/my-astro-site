@@ -1,11 +1,30 @@
 ---
-import LayoutMain from "@/layouts/LayoutMain.astro";
-import Landing from "@/megabytee/pages/landing.astro";
-const title = "MegaBytee's Website | Software Engineer.";
-const desc =
-  "I'm a Software Engineer based in Morocco, with expertise in TypeScript, Next.js, Golang, and serverless cloud computing. Passionate about merging cutting-edge technology with clean, maintainable code, I thrive in collaborative teams to deliver innovative solutions that solve complex problems.";
+import Hero from "@/components/Hero.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
+import { skills } from "@/data/skills";
+import MainLayout from "@/layouts/Main.astro";
+import SectionSkills from "@/components/SectionSkills.astro";
+import ArrowSeparator from "@/components/astro/ArrowSeparator.astro";
+import AvatarMotion from "@/components/react/Avatar/AvatarMotion";
+import mbAvatar from "@/assets/mb_logo.png";
 ---
 
-<LayoutMain title={title} description={desc}>
-  <Landing />
-</LayoutMain>
+<MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<div class="w-full flex flex-col justify-center items-center">
+		<Hero
+			title="Hey ! I'm Malek Brahim."
+			subtitle="Software Engineer who loves to build things for the web. I'm passionate about creating elegant solutions and exploring new technologies. Currently working on exciting projects while remaining open to new opportunities."
+			showCTA
+			primaryCTA={{ text: "View Projects", href: "/projects" }}
+			secondaryCTA={{ text: "Read Blog", href: "/blog" }}
+		/>
+		<ArrowSeparator
+			class="text-slate-900 dark:text-slate-100 animate-[bounce_1.5s_ease-in-out_infinite]"
+		/>
+		<SectionSkills
+			title="Skills & Tools"
+			subtitle="Here are some of the technologies I've been working with"
+			skills={skills}
+		/>
+	</div>
+</MainLayout>

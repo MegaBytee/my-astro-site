@@ -1,0 +1,62 @@
+---
+import Carousel from "@/components/astro/Carousel.astro";
+import { logos } from "@/data/logos";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+interface SkillItem {
+    icon: string; // inline SVG
+    title: string;
+    description: string;
+}
+
+interface Props {
+    title?: string;
+    subtitle?: string;
+    skills: SkillItem[];
+}
+
+const { title, skills, subtitle } = Astro.props as Props;
+---
+
+<section class="w-full p-2">
+    <div class="flex flex-col mx-auto max-w-6xl items-center justify-center">
+        {
+            title && (
+                <h2 class="text-3xl md:text-4xl font-semibold text-center  text-foreground">
+                    {title}
+                </h2>
+            )
+        }
+        {
+            subtitle && (
+                <p class="text-sm text-neutral-500 dark:text-neutral-400 animate-fade-up">
+                    {subtitle}
+                </p>
+            )
+        }
+        <div class="mb-6 w-full">
+            <Carousel tools={logos} />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {
+                skills.map((skill) => (
+                    <Card
+                        client:load
+                        className="flex text-center rounded-xs shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:elevate-lg"
+                    >
+                        <CardHeader className="items-center justify-center">
+                            <CardTitle className="text-3xl">
+                                {skill.title}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p class="leading-relaxed max-w-prose">
+                                {skill.description}
+                            </p>
+                        </CardContent>
+                    </Card>
+                ))
+            }
+        </div>
+    </div>
+</section>
