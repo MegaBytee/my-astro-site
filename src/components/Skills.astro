@@ -1,9 +1,8 @@
 ---
-import Carousel from "@/components/astro/Carousel.astro";
+import Carousel from "@/components/ui/astro/Carousel.astro";
 import { logos } from "@/data/logos";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 interface SkillItem {
-    icon: string; // inline SVG
     title: string;
     description: string;
 }
@@ -40,21 +39,12 @@ const { title, skills, subtitle } = Astro.props as Props;
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {
                 skills.map((skill) => (
-                    <Card
-                        client:load
-                        className="flex text-center rounded-xs shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:elevate-lg"
-                    >
-                        <CardHeader className="items-center justify-center">
-                            <CardTitle className="text-3xl">
-                                {skill.title}
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p class="leading-relaxed max-w-prose">
-                                {skill.description}
-                            </p>
-                        </CardContent>
-                    </Card>
+                    <div class="card w-full bg-base-300 card-xl  shadow-lg transition-transform duration-200 hover:-translate-y-1 hover:elevate-lg">
+                        <div class="card-body text-center items-center justify-center">
+                            <h2 class="card-title text-3xl">{skill.title}</h2>
+                            <p>{skill.description}</p>
+                        </div>
+                    </div>
                 ))
             }
         </div>
