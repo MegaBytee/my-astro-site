@@ -4,7 +4,8 @@
 @plugin "daisyui" {
   themes:
     light --default,
-    night --prefersdark;
+    night --prefersdark,
+    dark;
 }
 
 @custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
