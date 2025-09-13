@@ -1,8 +1,13 @@
 ---
-title: 'Second post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 15 2022'
-heroImage: '../../assets/blog-placeholder-4.jpg'
+title: "First Project lorem ipsum"
+description: "Lorem ipsum dolor sit amet , this demo -- see this later :)"
+pubDate: "Sep 13 2025"
+tags: [tag1, tag2]
+image:
+  link: "https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f3mphajybmh119za8t71.jpg"
+  alt: ""
+  attrs: "unsplash"
+  source: "https://unsplash.com/photos/a-picture-of-a-cartoon-character-on-a-wall-fd9mIBluHkA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.

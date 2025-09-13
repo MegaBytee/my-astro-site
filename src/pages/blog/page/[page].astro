@@ -6,10 +6,24 @@ import BlogAllPosts from "@/components/BlogAllPosts.astro";
 import BlogPagination from "@/components/ui/astro/BlogPagination.astro";
 import PageHero from "@/components/PageHero.astro";
 
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog")).sort(
+    (a, b) => +b.data.pubDate - +a.data.pubDate,
+  );
+  const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }));
+}
+
 const posts = (await getCollection("blog")).sort(
   (a, b) => +b.data.pubDate - +a.data.pubDate,
 );
-const firstPagePosts = posts.slice(0, PAGE_SIZE);
+const { page } = Astro.params;
+const currentPage = Math.max(1, parseInt(page || "1", 10));
+const start = (currentPage - 1) * PAGE_SIZE;
+const end = start + PAGE_SIZE;
+const pagePosts = posts.slice(start, end);
 const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
 ---
 
@@ -19,7 +33,7 @@ const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
       title="Blog"
       subtitle="Articles and thoughts on web development, software architecture, and new technologies."
     />
-    <BlogAllPosts posts={firstPagePosts} />
-    <BlogPagination currentPage={1} totalPages={totalPages} />
+    <BlogAllPosts posts={pagePosts} />
+    <BlogPagination currentPage={currentPage} totalPages={totalPages} />
   </div>
 </MainLayout>

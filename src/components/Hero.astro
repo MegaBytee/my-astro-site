@@ -42,13 +42,13 @@ const {
             showCTA && (primaryCTA || secondaryCTA) && (
                 <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                     {primaryCTA && (
-                        <a class="btn btn-neutral" href={primaryCTA.href}>
+                        <a class="btn btn-soft" href={primaryCTA.href}>
                             {primaryCTA.text}
                         </a>
                     )}
                     {secondaryCTA && (
                         <a
-                            class="btn btn-secondary dark:btn-accent"
+                            class="btn btn-soft btn-primary dark:btn-warning"
                             href={secondaryCTA.href}
                         >
                             {secondaryCTA.text}

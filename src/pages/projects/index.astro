@@ -1,10 +1,26 @@
 ---
-import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
+import PageHero from "@/components/PageHero.astro";
+import { SITE_DESCRIPTION, SITE_TITLE, PAGE_SIZE } from "@/consts";
 import MainLayout from "@/layouts/Main.astro";
+import { getCollection } from "astro:content";
+import ProjectsList from "@/components/ProjectsList.astro";
+import ProjectsPagination from "@/components/ui/astro/ProjectsPagination.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => +b.data.pubDate - +a.data.pubDate,
+);
+
+const firstPagePosts = projects.slice(0, PAGE_SIZE);
+const totalPages = Math.max(1, Math.ceil(projects.length / PAGE_SIZE));
 ---
 
 <MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-    <div class="w-full flex flex-col justify-center items-center">
-        See this later :)
-    </div>
+  <div class="w-full flex flex-col p-3">
+    <PageHero
+      title="Projects"
+      subtitle="Open-source projects I build and maintain."
+    />
+    <ProjectsList projects={firstPagePosts} />
+    <ProjectsPagination currentPage={1} totalPages={totalPages} />
+  </div>
 </MainLayout>

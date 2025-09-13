@@ -1,0 +1,39 @@
+---
+import MainLayout from "@/layouts/Main.astro";
+import { SITE_DESCRIPTION, SITE_TITLE, PAGE_SIZE } from "@/consts";
+import { getCollection } from "astro:content";
+import ProjectsList from "@/components/ProjectsList.astro";
+import ProjectsPagination from "@/components/ui/astro/ProjectsPagination.astro";
+import PageHero from "@/components/PageHero.astro";
+
+export async function getStaticPaths() {
+  const projects = (await getCollection("projects")).sort(
+    (a, b) => +b.data.pubDate - +a.data.pubDate,
+  );
+  const totalPages = Math.max(1, Math.ceil(projects.length / PAGE_SIZE));
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }));
+}
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => +b.data.pubDate - +a.data.pubDate,
+);
+const { page } = Astro.params;
+const currentPage = Math.max(1, parseInt(page || "1", 10));
+const start = (currentPage - 1) * PAGE_SIZE;
+const end = start + PAGE_SIZE;
+const pagePosts = projects.slice(start, end);
+const totalPages = Math.max(1, Math.ceil(projects.length / PAGE_SIZE));
+---
+
+<MainLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="w-full flex flex-col p-3">
+    <PageHero
+      title="Projects"
+      subtitle="Open-source projects I build and maintain."
+    />
+    <ProjectsList projects={pagePosts} />
+    <ProjectsPagination currentPage={currentPage} totalPages={totalPages} />
+  </div>
+</MainLayout>

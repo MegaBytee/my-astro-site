@@ -1,0 +1,23 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const { title = "Page", subtitle } = Astro.props as Props;
+---
+
+<section class="w-full py-4">
+  <div class="flex flex-col mx-auto max-w-6xl gap-1">
+    <h1 class="text-5xl font-extrabold tracking-tight text-foreground">
+      {title}
+    </h1>
+    {
+      subtitle && (
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 animate-fade-up">
+          {subtitle}
+        </p>
+      )
+    }
+  </div>
+</section>

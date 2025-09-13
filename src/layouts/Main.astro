@@ -2,24 +2,37 @@
 import BaseHead from "@/components/BaseHead.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
-const { title, description } = Astro.props;
+
+const { title, description, image } = Astro.props;
+const default_image = Astro.site + "mb_logo.png";
 ---
 
 <script is:inline>
-    import { getDataTheme, getTheme } from "@/theme";
-    const theme = getTheme();
-    const data_theme = getDataTheme(theme);
-    document.documentElement.setAttribute("data-theme", data_theme);
+  if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+    const theme = localStorage.getItem("theme");
+    document.documentElement.setAttribute("data-theme", theme);
+  }
 </script>
-<html lang="en" data-theme="night">
-    <head>
-        <BaseHead title={title} description={description} />
-    </head>
-    <body>
-        <Header />
-        <main>
-            <slot />
-        </main>
-        <Footer />
-    </body>
+
+<html lang="en">
+  <head>
+    {
+      image ? (
+        <BaseHead title={title} description={description} image={image} />
+      ) : (
+        <BaseHead
+          title={title}
+          description={description}
+          image={default_image}
+        />
+      )
+    }
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>

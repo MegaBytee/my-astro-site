@@ -1,0 +1,8 @@
+---
+interface Props {
+  value: string;
+}
+const { value } = Astro.props as Props;
+---
+
+<span class="badge badge-outline rounded-xs">#{value}</span>

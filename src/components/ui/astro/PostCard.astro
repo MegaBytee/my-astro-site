@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+import { calculateReadingTimeFromMarkdown } from "@/lib/reading";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+const { post } = Astro.props as Props;
+// Estimate reading time from raw body (Markdown/MDX)
+let readingTimeMin = 0;
+try {
+  // @ts-ignore - body may not exist until rendered; fallback to data.description
+  const md = (post as any).body ?? "";
+  readingTimeMin = calculateReadingTimeFromMarkdown(
+    md || post.data.description || "",
+  );
+} catch {}
+---
+
+<article class="card w-full card-xl shadow-xs bg-base-300">
+  <div class="card-body">
+    <h2 class="card-title text-4xl">{post.data.title}</h2>
+    <p>{post.data.description}</p>
+    <div class="justify-start card-actions">
+      <div class="flex flex-col gap-1 text-xs">
+        <div class="flex items-center gap-1">
+          <FormattedDate date={post.data.pubDate} />
+        </div>
+        {
+          readingTimeMin > 0 && (
+            <div class="flex items-center gap-1">
+              <svg
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 3" />
+              </svg>
+              {readingTimeMin} min read
+            </div>
+          )
+        }
+      </div>
+    </div>
+    <div class="justify-end card-actions">
+      <a href={`/blog/${post.id}/`} class="btn btn-soft">Read more</a>
+    </div>
+  </div>
+</article>

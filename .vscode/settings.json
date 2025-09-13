@@ -1,5 +1,6 @@
 {
-    "astro.content-intellisense": true,
-    "css.validate": false,
-    "editor.formatOnSave": true
+  "astro.content-intellisense": true,
+  "css.validate": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

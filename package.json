@@ -23,6 +23,8 @@
   },
   "devDependencies": {
     "daisyui": "^5.1.10",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
     "vite": "^7.1.5"
   }
 }
