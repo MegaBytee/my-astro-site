@@ -48,6 +48,7 @@ const projects = defineCollection({
       updatedDate: z.coerce.date().optional(),
       tags: z.array(z.string()).optional(),
       author: z.string().default("@MegaBytee"),
+      repo: z.string(),
     }),
 });
 

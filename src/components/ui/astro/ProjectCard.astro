@@ -11,24 +11,33 @@ const { project } = Astro.props as Props;
 
 <article class="card w-full card-xl shadow-xs bg-base-300">
   <div class="card-body">
-    <h2 class="card-title text-4xl">{project.data.title}</h2>
-    <p>{project.data.description}</p>
-    <div class="justify-start card-actions">
-      <div class="flex flex-col gap-1 text-xs">
-        <div class="flex items-center gap-1">
-          <FormattedDate date={project.data.pubDate} />
-        </div>
-        <div class="w-full md:w-auto flex flex-wrap gap-3">
-          {
-            project.data.tags
-              ? project.data.tags.map((tag) => <Tag value={tag} />)
-              : ""
-          }
+    <a
+      href={`/projects/${project.id}/`}
+      class="justify-start btn btn-link underline"
+    >
+      <h2 class="card-title text-4xl">{project.data.title}</h2>
+    </a>
+    <div class="flex flex-col gap-1 justify-start px-4">
+      <p>{project.data.description}</p>
+      <div class="justify-start card-actions">
+        <div class="flex flex-col gap-1 text-xs">
+          <div class="flex items-center gap-1">
+            <FormattedDate date={project.data.pubDate} />
+          </div>
+          <div class="w-full md:w-auto flex flex-wrap gap-3">
+            {
+              project.data.tags
+                ? project.data.tags.map((tag) => <Tag value={tag} />)
+                : ""
+            }
+          </div>
         </div>
       </div>
     </div>
     <div class="justify-end card-actions">
-      <a href={`/projects/${project.id}/`} class="btn btn-soft">Read more</a>
+      <a href={project.data.repo} class="btn btn-soft" target="_blank"
+        >Github Repo</a
+      >
     </div>
   </div>
 </article>
